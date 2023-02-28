@@ -1,0 +1,85 @@
+.container-mainpage {
+  position: absolute;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  padding: 2vh;
+  width: 500px;
+}
+
+.sh {
+  display: flex;
+  height: 14px;
+  margin-bottom: 11px;
+}
+.sh-indent {
+  margin-top: 28px;
+  margin-left: 56px;
+}
+
+.sh-symbol {
+  width: 14px;
+  margin-right: 14px;
+  background-color: darkgray;
+}
+
+.sh-symbol--rect {
+  width: 82px;
+}
+.sh-symbol--rect-short {
+  width: 50px;
+}
+.sh-symbol--rect-medium {
+  width: 154px;
+}
+.sh-symbol--rect-long {
+  width: 210px;
+}
+.sh-symbol--circle {
+  border-radius: 14px;
+}
+
+.content {
+  width: 960px;
+  height: 500px;
+  background: #f0f0f0;
+  padding: 0;
+}
+
+.wrapper {
+  position: relative;
+  width: 1920px;
+  height: 1000px;
+  transform: scale(1);
+  transform-origin: top left;
+}
+
+@media small {
+  .container-mainpage {
+    transform: scale(0.75);
+  }
+}
+
+.side-bar {
+  transform: rotate(-90deg) translateX(28px);
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  text-align: right;
+  transform-origin: bottom right;
+  display: inline-block;
+}
+
+.navbar-nav {
+  display: flex;
+  text-align: right;
+}
+
+.nav-item {
+  margin-left: 10px;
+}
+
+.nav-item:hover {
+  color: grey;
+}
