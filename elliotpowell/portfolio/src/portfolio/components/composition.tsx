@@ -466,4 +466,4 @@ export default function Composition({ url, ...props }) {
   );
 }
 
-// useGLTF.preload("/static/portfolio/Composition1.gltf");
+useGLTF.preload("/static/portfolio/CompositionV10-transformed.glb");
