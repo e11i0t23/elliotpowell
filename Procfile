@@ -1,1 +1,1 @@
-web: manage.py runserver
+web: gunicorn --chdir ./elliotpowell elliotpowell.wsgi

@@ -1,0 +1,23 @@
+{
+  "name": "Elliot-Powell",
+  "description": "My Portfolio Site",
+  "image": "heroku/python",
+  "repository": "https://github.com/e11i0t23/elliotpowell",
+  "keywords": ["python", "django", "HTML", "Portfolio"],
+  "addons": ["heroku-postgresql"],
+  "env": {
+    "SECRET_KEY": {
+      "description": "The secret key for the Django application.",
+      "generator": "secret"
+    }
+  },
+  "environments": {},
+  "buildpacks": [
+    {
+      "url": "heoku/nodejs"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
