@@ -23,19 +23,29 @@ export default function ScrollPage() {
         <Scroll html>
           <div>
             <div style={{ top: "0vh" }} className="container-mainpage">
-              <Intro />
+              <div className="center">
+                <Intro />
+              </div>
             </div>
             <div style={{ top: "100vh" }} className="container-mainpage">
-              <Work setUrl={setUrl} />
+              <div className="">
+                <Work setUrl={setUrl} />
+              </div>
             </div>
             <div style={{ top: "200vh" }} className="container-mainpage">
-              <Skills />
+              <div className="">
+                <Skills />
+              </div>
             </div>
             <div style={{ top: "300vh" }} className="container-mainpage">
-              <About />
+              <div className="center">
+                <About />
+              </div>
             </div>
             <div style={{ top: "400vh" }} className="container-mainpage">
-              <Contact />
+              <div className="center">
+                <Contact />
+              </div>
             </div>
           </div>
         </Scroll>

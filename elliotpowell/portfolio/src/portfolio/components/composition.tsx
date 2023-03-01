@@ -155,7 +155,7 @@ export default function Composition({ url, ...props }) {
               <meshStandardMaterial color={"darkgrey"} />
             </mesh>
             <mesh geometry={nodes.Screen.geometry}>
-              {r1 >= 0.6 ? (
+              {r1 >= 0.6 && window.innerWidth >= 1250 ? (
                 <Html
                   className="content"
                   rotation={[Math.PI / 2, 0, 0]}

@@ -41,55 +41,57 @@ export default function Contact() {
 
   return (
     <>
-      <h2>Contact Me</h2>
-      <form onSubmit={submit}>
-        <input
-          type="text"
-          placeholder="Name"
-          className="form-control"
-          value={form.name}
-          onChange={(e) => {
-            setFrom((d) => {
-              d.name = e.target.value;
-            });
-          }}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="form-control"
-          value={form.email}
-          onChange={(e) => {
-            setFrom((d) => {
-              d.email = e.target.value;
-            });
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Subject"
-          className="form-control"
-          value={form.subject}
-          onChange={(e) => {
-            setFrom((d) => {
-              d.subject = e.target.value;
-            });
-          }}
-        />
-        <textarea
-          placeholder="Message"
-          className="form-control"
-          rows={5}
-          value={form.message}
-          onChange={(e) => {
-            setFrom((d) => {
-              d.message = e.target.value;
-            });
-          }}
-        />
-        <br />
-        <input type="submit" className="form-control" />
-      </form>
+      <div className="form">
+        <h2>Contact Me</h2>
+        <form onSubmit={submit}>
+          <input
+            type="text"
+            placeholder="Name"
+            className="form-control"
+            value={form.name}
+            onChange={(e) => {
+              setFrom((d) => {
+                d.name = e.target.value;
+              });
+            }}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            className="form-control"
+            value={form.email}
+            onChange={(e) => {
+              setFrom((d) => {
+                d.email = e.target.value;
+              });
+            }}
+          />
+          <input
+            type="text"
+            placeholder="Subject"
+            className="form-control"
+            value={form.subject}
+            onChange={(e) => {
+              setFrom((d) => {
+                d.subject = e.target.value;
+              });
+            }}
+          />
+          <textarea
+            placeholder="Message"
+            className="form-control"
+            rows={5}
+            value={form.message}
+            onChange={(e) => {
+              setFrom((d) => {
+                d.message = e.target.value;
+              });
+            }}
+          />
+          <br />
+          <input type="submit" className="form-control" />
+        </form>
+      </div>
     </>
   );
 }
