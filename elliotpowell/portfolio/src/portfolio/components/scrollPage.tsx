@@ -13,13 +13,13 @@ import Composition from "./composition";
 const rsqw = (t, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) =>
   (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta);
 
-export default function ScrollPage() {
+export default function ScrollPage({ scrl, ...props }) {
   const { viewport } = useThree();
   const [url, setUrl] = useState("https://elliot-powell.com");
   return (
     <>
       <ScrollControls pages={5} damping={0.1}>
-        <Composition url={url} />
+        <Composition url={url} scrl={scrl} />
         <Scroll html>
           <div>
             <div style={{ top: "0vh" }} className="container-mainpage">
