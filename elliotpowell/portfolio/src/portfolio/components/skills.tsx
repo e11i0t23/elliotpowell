@@ -11,7 +11,6 @@ export default function Skills({ ...props }) {
         return r.json();
       })
       .then((p) => {
-        console.log(p);
         setSkills(p.skills);
         setLoading(false);
       });
@@ -45,9 +44,7 @@ export default function Skills({ ...props }) {
                   >
                     <h5 style={{ display: "inline-block", fontSize: "25px" }}>
                       <span
-                        className={` ${
-                          selected == i ? "sh-symbol--rect-short" : "sh-symbol"
-                        }  sh-symbol`}
+                        className={` ${selected == i ? "sh-symbol--rect-short" : "sh-symbol"}  sh-symbol`}
                         style={{
                           display: "inline-block",
                           height: "14px",
