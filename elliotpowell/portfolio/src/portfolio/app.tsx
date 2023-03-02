@@ -1,17 +1,19 @@
-import React, { Suspense, useState, useRef } from "react";
+import React, { Suspense, useState, useRef, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 
 import ScrollPage from "./components/scrollPage";
 import Composition from "./components/composition";
 
 import { OrbitControls, Loader } from "@react-three/drei";
+import useWindowDimensions from "./util/windowDimesnions";
 
 export default function App() {
+  const { innerHeight, innerWidth } = useWindowDimensions();
   const [scrl, setScrl] = useState(0);
 
   return (
     <Suspense fallback={<Loader />}>
-      <div style={{ height: "100vh", width: "100vw", overflow: "clip" }}>
+      <div style={{ height: "100vh", width: "100vw", overflow: "clip", color: "#ededed" }}>
         <Canvas
           camera={{
             position: [0, 50, 0],
@@ -28,6 +30,18 @@ export default function App() {
         <div className="side-bar">
           <nav className="">
             <ul className="navbar-nav list-group-horizontal">
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setScrl(1);
+                  }}
+                >
+                  Contact
+                </a>
+              </li>
               <li className="nav-item">
                 <a
                   className="nav-link"
@@ -67,6 +81,50 @@ export default function App() {
             </ul>
           </nav>
         </div>
+        {innerHeight > 500 && innerWidth > 600 && (
+          <div className="footer">
+            <footer>
+              <ul className="navbar-nav list-group-horizontal">
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="/github"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open("https://github.com/e11i0t23", "_blank");
+                    }}
+                  >
+                    Github
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="/email"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open("mailto:elliot2810@gmail.com", "_blank");
+                    }}
+                  >
+                    Email
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="/resume"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open("/static/portfolio/public/elliot-powell-resume.pdf", "_blank");
+                    }}
+                  >
+                    Resume
+                  </a>
+                </li>
+              </ul>
+            </footer>
+          </div>
+        )}
       </div>
     </Suspense>
   );

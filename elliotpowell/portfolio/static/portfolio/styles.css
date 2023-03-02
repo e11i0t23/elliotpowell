@@ -72,6 +72,16 @@
   display: inline-block;
 }
 
+.footer {
+  position: absolute;
+  display: inline-block;
+  transform: rotate(-90deg) translateX(100%);
+  bottom: 30px;
+  right: 30px;
+  text-align: right;
+  transform-origin: bottom right;
+}
+
 @media screen and (max-width: 600px) {
   .container-mainpage {
     margin-top: 50px;
@@ -184,4 +194,8 @@
 
 .nav-item:hover {
   color: grey;
+}
+
+.navbar-contact {
+  text-align: left;
 }

@@ -137,8 +137,14 @@ type GLTFResult = GLTF & {
 
 export default function Composition({ url, scrl, ...props }) {
   const [pastScrl, setScrl] = useState(0);
-  const [hidden, set] = useState<boolean>();
+  const [hidden, set] = useState<boolean>(false);
+
+  const [mouse, setMouse] = useState<boolean>(false);
+  const [cam, setCam] = useState<boolean>(false);
+  const [keyboard, setKeyboard] = useState<boolean>(false);
+
   const [r1, setr1] = useState<number>(0);
+  const [r2, setr2] = useState<number>(0);
   const { nodes, materials } = useGLTF("/static/portfolio/Composition.glb") as GLTFResult;
   const { gl } = useThree();
   const group = useRef();
@@ -146,6 +152,7 @@ export default function Composition({ url, scrl, ...props }) {
   const { width, height } = useThree((state) => state.viewport);
   const camera = useThree((state) => state.camera);
 
+  const white = useMemo(() => new THREE.MeshStandardMaterial({ color: "#ffffff" }), []);
   const darkGrey = useMemo(() => new THREE.MeshStandardMaterial({ color: "#6b6b6b" }), []);
   const darkerGrey = useMemo(() => new THREE.MeshStandardMaterial({ color: "#4a4a4a" }), []);
 
@@ -160,6 +167,7 @@ export default function Composition({ url, scrl, ...props }) {
       setScrl(scrl);
     }
     setr1(r1);
+    setr2(r2);
     // const r1 = 1;
     // const r2 = 0;
     // const r3 = scroll.visible(4 / 5, 1 / 5);
@@ -208,139 +216,184 @@ export default function Composition({ url, scrl, ...props }) {
             <mesh geometry={nodes.Casing.geometry} material={materials["Opaque(64,64,64)"]} />
             <mesh geometry={nodes.Stand.geometry} material={materials["Opaque(64,64,64)"]} />
             <mesh geometry={nodes.Screen.geometry}>
-              {r1 >= 0.6 && window.innerWidth >= 1250 ? (
-                <Html
-                  className="content"
-                  rotation={[Math.PI / 2, 0, 0]}
-                  position={[-166.5, 268, 938.5]}
-                  transform
-                  occlude
-                  prepend
-                  portal={{ current: gl.domElement.parentNode }}
-                  scale={13.9}
-                  as="div"
-                  onOcclude={set}
-                  style={{
-                    transition: "all 0.5s",
-                    opacity: hidden ? 0 : 1,
-                    transform: `scale(${hidden ? 0.5 : 1})`,
-                  }}
-                >
-                  <div className="wrapper" onPointerDown={(e) => e.stopPropagation()}>
-                    <div>
-                      <iframe width={1920} height={1000} src={url} />
+              {window.innerWidth >= 1250 ? (
+                r2 >= 0.6 ? (
+                  <meshStandardMaterial color={"#9e9e9e"} />
+                ) : r1 >= 0.6 ? (
+                  <Html
+                    className="content"
+                    rotation={[Math.PI / 2, 0, 0]}
+                    position={[-166.5, 268, 938.5]}
+                    transform
+                    occlude
+                    prepend
+                    portal={{ current: gl.domElement.parentNode }}
+                    scale={13.9}
+                    as="div"
+                    onOcclude={set}
+                    style={{
+                      transition: "all 0.5s",
+                      opacity: hidden ? 0 : 1,
+                      transform: `scale(${hidden ? 0.5 : 1})`,
+                    }}
+                  >
+                    <div className="wrapper" onPointerDown={(e) => e.stopPropagation()}>
+                      <div>
+                        <iframe width={1920} height={1000} src={url} />
+                      </div>
                     </div>
-                  </div>
-                </Html>
+                  </Html>
+                ) : (
+                  <meshStandardMaterial color={"#9e9e9e"} />
+                )
               ) : (
-                <meshStandardMaterial color={"lightgrey"} />
+                <meshStandardMaterial color={"#9e9e9e"} />
               )}
             </mesh>
           </group>
 
           {/* Camera */}
-          <group>
-            <mesh geometry={nodes.Camera.geometry} material={materials["Opaque(64,64,64)"]} />
+          <group
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open("https://elliot-powell.com", "_blank");
+            }}
+            onPointerOver={(e) => {
+              e.stopPropagation();
+              setCam(true);
+            }}
+            onPointerOut={(e) => {
+              e.stopPropagation();
+              setCam(false);
+            }}
+          >
+            <mesh geometry={nodes.Camera.geometry} material={cam ? white : materials["Opaque(64,64,64)"]} />
           </group>
 
           {/* Mouse */}
-          <group>
-            <mesh geometry={nodes.Mouse_Base.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Mouse_Top.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Mouse_Middle.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Mouse_Wheel_1.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Mouse_Wheel_1_1.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Mouse_Wheel_1_2.geometry} material={materials["Opaque(64,64,64)"]} />
+          <group
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log("click Mouse");
+            }}
+            onPointerOver={(e) => {
+              e.stopPropagation();
+              setMouse(true);
+            }}
+            onPointerOut={(e) => {
+              e.stopPropagation();
+              setMouse(false);
+            }}
+          >
+            <mesh geometry={nodes.Mouse_Base.geometry} material={mouse ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Mouse_Top.geometry} material={mouse ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Mouse_Middle.geometry} material={mouse ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Mouse_Wheel_1.geometry} material={mouse ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Mouse_Wheel_1_1.geometry} material={mouse ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Mouse_Wheel_1_2.geometry} material={mouse ? white : materials["Opaque(64,64,64)"]} />
           </group>
 
           {/* Keyboard */}
-          <group>
-            <mesh geometry={nodes.Top.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Plate.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Bottom.geometry} material={materials["Opaque(64,64,64)"]} />
+          <group
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open("https://epkb.design", "_blank");
+            }}
+            onPointerOver={(e) => {
+              e.stopPropagation();
+              setKeyboard(true);
+            }}
+            onPointerOut={(e) => {
+              e.stopPropagation();
+              setKeyboard(false);
+            }}
+          >
+            <mesh geometry={nodes.Top.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Plate.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Bottom.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
 
-            <mesh geometry={nodes.Body1.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body11.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body12.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body13.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body14.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body15.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body16.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body17.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body18.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body19.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body110.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body111.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body112.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body113.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body114.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body115.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body116.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body117.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body118.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body119.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body120.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body121.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body122.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body123.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body124.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body125.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body126.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body127.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body128.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body129.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body130.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body131.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body132.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body133.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body134.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body135.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body136.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body137.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body138.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body139.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body140.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body141.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body142.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body143.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body144.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body145.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body146.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body147.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body148.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body149.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body150.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body151.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body152.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body153.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body154.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body155.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body156.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body157.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body158.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body159.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body160.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body161.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body162.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body163.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body164.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body165.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body166.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body167.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body168.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body169.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body170.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body171.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body172.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body173.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body174.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body175.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body176.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body177.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body178.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body179.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body180.geometry} material={materials["Opaque(64,64,64)"]} />
-            <mesh geometry={nodes.Body181.geometry} material={materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body1.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body11.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body12.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body13.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body14.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body15.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body16.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body17.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body18.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body19.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body110.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body111.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body112.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body113.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body114.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body115.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body116.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body117.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body118.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body119.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body120.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body121.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body122.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body123.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body124.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body125.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body126.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body127.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body128.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body129.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body130.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body131.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body132.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body133.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body134.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body135.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body136.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body137.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body138.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body139.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body140.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body141.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body142.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body143.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body144.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body145.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body146.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body147.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body148.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body149.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body150.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body151.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body152.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body153.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body154.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body155.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body156.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body157.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body158.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body159.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body160.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body161.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body162.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body163.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body164.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body165.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body166.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body167.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body168.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body169.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body170.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body171.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body172.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body173.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body174.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body175.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body176.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body177.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body178.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body179.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body180.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
+            <mesh geometry={nodes.Body181.geometry} material={keyboard ? white : materials["Opaque(64,64,64)"]} />
           </group>
         </group>
       </group>
