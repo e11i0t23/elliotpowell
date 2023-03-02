@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    'csp.middleware.CSPMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -149,3 +150,12 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSP_FRAME_ANCESTORS = ("'self'", "https://*.elliot-powell.com")
+CSP_SCRIPT_SRC = ("'self'","'unsafe-eval'")
+CSP_STYLE_SRC = ("'self'","'unsafe-inline'")
+CSP_CONNECT_SRC = ["'self'", "https://www.gstatic.com/"]
+CSP_WORKER_SRC = ("'self'", "blob:")
+
+if not IS_HEROKU:
+    CSP_CONNECT_SRC.append("ws:")
