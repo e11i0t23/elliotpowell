@@ -5,12 +5,14 @@ class Work(models.Model):
     title = models.CharField(max_length=32)
     url = models.URLField()
     codeUrl = models.URLField(null=True, blank=True)
+    description = models.TextField(blank=True)
 
     def serialize(self):
         return {
             "title": self.title,
             "url": self.url,
-            "codeUrl": self.codeUrl
+            "codeUrl": self.codeUrl,
+            "description": self.description
         }
     
     def __str__(self) -> str:

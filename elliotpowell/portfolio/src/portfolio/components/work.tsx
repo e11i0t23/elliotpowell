@@ -32,36 +32,45 @@ export default function Work({ setUrl, ...props }) {
         {!loading &&
           projects.map(function (x, i) {
             return (
-              <div style={{ display: "flex" }} key={i}>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setUrl(x.url);
-                    setSelected(i);
-                    return false;
-                  }}
-                >
-                  <h5 style={{ display: "inline-block", fontSize: "25px" }}>
-                    <span
-                      className={` ${
-                        selected == i ? "sh-symbol--rect-short" : "sh-symbol"
-                      }  sh-symbol`}
-                      style={{
-                        display: "inline-block",
-                        height: "14px",
-                        position: "relative",
-                      }}
-                    ></span>
-                    {x.title}
-                  </h5>
-                </a>
-                {!(x.codeUrl == null || x.codeUrl == "") && (
-                  <a target="_blank" rel="noopener" href={x.codeUrl}>
-                    View Code
+              <>
+                <div style={{ display: "flex" }} key={i}>
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setUrl(x.url);
+                      setSelected(i);
+                      return false;
+                    }}
+                  >
+                    <h5 style={{ display: "inline-block", fontSize: "25px" }}>
+                      <span
+                        className={` ${selected == i ? "sh-symbol--rect-short" : "sh-symbol"}  sh-symbol`}
+                        style={{
+                          display: "inline-block",
+                          height: "14px",
+                          position: "relative",
+                        }}
+                      ></span>
+                      {x.title}
+                    </h5>
                   </a>
+                </div>
+                {selected == i && (
+                  <div style={{ marginLeft: "15px" }}>
+                    {x.description}
+                    <br />
+                    <a target="_blank" rel="noopener" href={x.url}>
+                      Visit Site
+                    </a>
+                    {!(x.codeUrl == null || x.codeUrl == "") && (
+                      <a target="_blank" rel="noopener" href={x.codeUrl} style={{ marginLeft: "10px" }}>
+                        View Code
+                      </a>
+                    )}
+                  </div>
                 )}
-              </div>
+              </>
             );
           })}
       </div>
