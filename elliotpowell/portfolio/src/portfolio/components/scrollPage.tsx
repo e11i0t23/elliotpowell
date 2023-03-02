@@ -22,7 +22,7 @@ export default function ScrollPage({ scrl, ...props }) {
         <Composition url={url} scrl={scrl} />
         <Scroll html>
           <div>
-            <div style={{ top: "0vh" }} className="container-mainpage">
+            <div style={{ top: "0vh" }} className="container-mainpage title-page">
               <div className="center">
                 <Intro />
               </div>
