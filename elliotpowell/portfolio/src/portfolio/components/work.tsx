@@ -32,8 +32,8 @@ export default function Work({ setUrl, ...props }) {
         {!loading &&
           projects.map(function (x, i) {
             return (
-              <>
-                <div style={{ display: "flex" }} key={i}>
+              <div key={i}>
+                <div style={{ display: "flex" }}>
                   <a
                     href=""
                     onClick={(e) => {
@@ -70,7 +70,7 @@ export default function Work({ setUrl, ...props }) {
                     )}
                   </div>
                 )}
-              </>
+              </div>
             );
           })}
       </div>
