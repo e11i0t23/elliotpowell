@@ -57,7 +57,7 @@ export default function Work({ setUrl, ...props }) {
                   </a>
                 </div>
                 {selected == i && (
-                  <div style={{ marginLeft: "15px" }}>
+                  <div className="work-selected-content">
                     {x.description}
                     <br />
                     <a target="_blank" rel="noopener" href={x.url}>

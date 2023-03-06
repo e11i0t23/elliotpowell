@@ -147,7 +147,7 @@ export default function Composition({ url, scrl, ...props }) {
   const [r2, setr2] = useState<number>(0);
   const { nodes, materials } = useGLTF("/static/portfolio/Composition.glb") as GLTFResult;
   const { gl } = useThree();
-  const group = useRef();
+  const group = useRef<THREE.Group>();
   const scroll = useScroll();
   const { width, height } = useThree((state) => state.viewport);
   const camera = useThree((state) => state.camera);
@@ -172,9 +172,9 @@ export default function Composition({ url, scrl, ...props }) {
     // const r2 = 0;
     // const r3 = scroll.visible(4 / 5, 1 / 5);
     camera.position.z = 0 + rsqw(r1) * 0.5;
-    camera.position.y = 0 + rsqw(r1) * 30 + rsqw(r2) * 40 + rsqw(r3) * 20;
+    camera.position.y = 0 + rsqw(r1) * 35 + rsqw(r2) * 40 + rsqw(r3) * 20;
 
-    group.current.rotation.z = 0 + Math.PI * 0.1 * rsqw(r1) - Math.PI * 0.1 * rsqw(r2);
+    group.current.rotation.z = 0 + Math.PI * 0.2 * rsqw(r1) - Math.PI * 0.2 * rsqw(r2);
     group.current.rotation.x = 0 + Math.PI * 0.1 * rsqw(r2);
   });
 
@@ -216,7 +216,7 @@ export default function Composition({ url, scrl, ...props }) {
             <mesh geometry={nodes.Casing.geometry} material={materials["Opaque(64,64,64)"]} />
             <mesh geometry={nodes.Stand.geometry} material={materials["Opaque(64,64,64)"]} />
             <mesh geometry={nodes.Screen.geometry}>
-              {window.innerWidth >= 1250 ? (
+              {window.innerWidth >= 800 ? (
                 r2 >= 0.6 ? (
                   <meshStandardMaterial color={"#9e9e9e"} />
                 ) : r1 >= 0.6 ? (
