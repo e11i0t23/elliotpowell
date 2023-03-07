@@ -110,6 +110,7 @@ These aditional requirements I believe suitably increases the difficulty of the 
 │       │       │   └── work.tsx # Collects projects from the api and renders a clickable list
 │       │       ├── app.tsx # Main entry to the React app, Initialises ThreeJS and headers
 │       │       ├── index.tsx # React index file, in charge of rendering root
+│       │       ├── portfolio.d.ts # Custom Type definitions for the portfolio app
 │       │       └── util
 │       │           ├── getCookie.ts # A utility function for getting cookie data
 │       │           ├── rsqw.ts # A Math function for smoothing animations
