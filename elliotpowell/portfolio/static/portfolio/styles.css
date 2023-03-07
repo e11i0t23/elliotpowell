@@ -57,6 +57,16 @@
   border-radius: 14px;
 }
 
+.sh-gradient-1 {
+  background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(245, 168, 61, 1) 100%);
+}
+.sh-gradient-2 {
+  background: linear-gradient(to right, #5f2c82, #49a09d);
+}
+.sh-gradient-3 {
+  background: linear-gradient(to right, #aa076b, #61045f);
+}
+
 .content {
   width: 960px;
   height: 500px;
@@ -85,6 +95,10 @@
   right: 30px;
   text-align: right;
   transform-origin: bottom right;
+}
+
+#name {
+  font-size: 60px;
 }
 
 @media screen and (max-width: 600px) {
