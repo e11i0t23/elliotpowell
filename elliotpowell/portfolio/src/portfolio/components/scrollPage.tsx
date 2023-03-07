@@ -1,5 +1,5 @@
 import { ScrollControls, Scroll } from "@react-three/drei";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 import { useThree } from "@react-three/fiber";
 import Intro from "./intro";
@@ -10,7 +10,6 @@ import Contact from "./contact";
 import Composition from "./composition";
 
 export default function ScrollPage({ scrl, ...props }) {
-  const { viewport } = useThree();
   const [url, setUrl] = useState("https://elliot-powell.com");
   return (
     <>
@@ -49,41 +48,3 @@ export default function ScrollPage({ scrl, ...props }) {
     </>
   );
 }
-
-// function Composition({ url, ...props }) {
-//   const scroll = useScroll();
-//   const { width, height } = useThree((state) => state.viewport);
-//   const camera = useThree((state) => state.camera);
-//   const set = useThree((state) => state.set);
-//   const group = useRef();
-//   const desk = useRef();
-//   const monitor = useRef();
-//   const [r1, setr1] = useState(0);
-
-//   useFrame((state, delta) => {
-//     if (group.current === undefined) return false;
-//     const r1 = scroll.range(0 / 4, 1 / 4);
-//     const r2 = scroll.range(2 / 4, 1 / 4);
-//     const r3 = scroll.range(3 / 4, 1 / 4);
-//     // scroll.offset = 0;
-//     // console.log(scroll.offset);
-//     setr1(r1);
-//     // const r1 = 1;
-//     // const r2 = 0;
-//     // const r3 = scroll.visible(4 / 5, 1 / 5);
-//     camera.position.z = 0 + rsqw(r1) * 0.5;
-//     camera.position.y = 0 + rsqw(r1) * 30 + rsqw(r2) * 40 + rsqw(r3) * 20;
-
-//     group.current.rotation.z = 0 + Math.PI * 0.1 * rsqw(r1) - Math.PI * 0.1 * rsqw(r2);
-//     group.current.rotation.x = 0 + Math.PI * 0.1 * rsqw(r2);
-//   });
-
-//   return (
-//     <>
-//       <spotLight position={[0, -width * 0.6, 1050]} intensity={2} angle={Math.PI / 2} />
-//       <group ref={group} position={[0, -height / 2.65, 2.25]} {...props}>
-//         <Model r1={r1} url={url} />
-//       </group>
-//     </>
-//   );
-// }
