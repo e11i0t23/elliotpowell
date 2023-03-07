@@ -6,7 +6,7 @@ Command: npx gltfjsx@6.1.4 Composition.gltf
 import React, { useRef, useState, useMemo } from "react";
 import { useGLTF, useScroll, Html } from "@react-three/drei";
 import { useThree, useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import { MeshStandardMaterial } from "three";
 import rsqw from "../util/rsqw";
 import { Group } from "three";
 
@@ -31,11 +31,11 @@ export default function Composition({ url, scrl, ...props }: portfolio.Compositi
   const { width, height } = useThree((state) => state.viewport);
   const camera = useThree((state) => state.camera);
 
-  const white = useMemo(() => new THREE.MeshStandardMaterial({ color: "#ffffff" }), []);
-  const darkGrey = useMemo(() => new THREE.MeshStandardMaterial({ color: "#6b6b6b" }), []);
-  const darkerGrey = useMemo(() => new THREE.MeshStandardMaterial({ color: "#4a4a4a" }), []);
+  const white = useMemo(() => new MeshStandardMaterial({ color: "#ffffff" }), []);
+  const darkGrey = useMemo(() => new MeshStandardMaterial({ color: "#6b6b6b" }), []);
+  const darkerGrey = useMemo(() => new MeshStandardMaterial({ color: "#4a4a4a" }), []);
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (group.current === null) return false;
     const r1 = scroll.range(0 / 4, 1 / 4);
     const r2 = scroll.range(2 / 4, 1 / 4);

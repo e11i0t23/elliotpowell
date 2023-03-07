@@ -1,7 +1,6 @@
 import { ScrollControls, Scroll } from "@react-three/drei";
 import React, { useState } from "react";
 
-import { useThree } from "@react-three/fiber";
 import Intro from "./intro";
 import Work from "./work";
 import Skills from "./skills";
