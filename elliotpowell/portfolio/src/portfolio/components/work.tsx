@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 
-interface WorkProps {
-  setURL: React.Dispatch<React.SetStateAction<string>>;
-}
-
-type project = {
-  title: string;
-  url: string;
-  description: string;
-  codeUrl: string | null;
-};
-
-export default function Work({ setURL }: WorkProps) {
-  const [projects, setProjects] = useImmer<project[]>([]);
+export default function Work({ setURL }: portfolio.WorkProps) {
+  const [projects, setProjects] = useImmer<portfolio.project[]>([]);
   const [selected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -22,7 +11,7 @@ export default function Work({ setURL }: WorkProps) {
         return r.json();
       })
       .then((p) => {
-        setProjects(p.work as project[]);
+        setProjects(p.work as portfolio.project[]);
         setLoading(false);
       });
   }, []);

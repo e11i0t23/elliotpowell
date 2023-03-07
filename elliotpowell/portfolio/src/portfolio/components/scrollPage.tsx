@@ -9,11 +9,7 @@ import About from "./about";
 import Contact from "./contact";
 import Composition from "./composition";
 
-interface ScrollPageProps {
-  scrl: number;
-}
-
-export default function ScrollPage({ scrl }: ScrollPageProps) {
+export default function ScrollPage({ scrl }: portfolio.ScrollPageProps) {
   const [url, setURL] = useState("https://elliot-powell.com");
   return (
     <>
