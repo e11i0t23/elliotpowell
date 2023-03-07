@@ -62,23 +62,23 @@ These aditional requirements I believe suitably increases the difficulty of the 
 
 ## Languages, Frameworks, and Tools Used
 
-- HTML
-- CSS
-  - Bootsrap
-- Python
-  - Django
-  - Django CSP
-  - Gunicorn
-- Javascript and Typescript
-  - React
-  - ThreeJS
-  - React Three Fibre
-  - Webpack
-  - Babel
-- Git
-  - Github
-- Heroku
-- PostgreSQL
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  - [Bootsrap](https://getbootstrap.com/)
+- [Python](https://www.python.org/)
+  - [Django](https://www.djangoproject.com/)
+  - [Django CSP](https://django-csp.readthedocs.io/en/latest/)
+  - [Gunicorn](https://gunicorn.org/)
+- [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [Typescript](https://www.typescriptlang.org/)
+  - [React](https://reactjs.org/)
+  - [ThreeJS](https://threejs.org/)
+  - [React Three Fibre](https://docs.pmnd.rs/react-three-fiber)
+  - [Webpack](https://webpack.js.org/)
+  - [Babel](https://babeljs.io/)
+- [Git](https://git-scm.com/)
+  - [Github](https://github.com/)
+- [Heroku](https://www.heroku.com/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## File Tree and Overview
 
