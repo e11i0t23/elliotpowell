@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 
+type framework = {
+  title: string;
+};
+type skill = {
+  title: string;
+  frameworks: framework[];
+};
+
 export default function Skills({ ...props }) {
-  const [skills, setSkills] = useImmer([]);
+  const [skills, setSkills] = useImmer<skill[]>([]);
   const [selected, setSelected] = useState(-1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -11,7 +19,7 @@ export default function Skills({ ...props }) {
         return r.json();
       })
       .then((p) => {
-        setSkills(p.skills);
+        setSkills(p.skills as skill[]);
         setLoading(false);
       });
   }, []);

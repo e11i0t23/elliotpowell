@@ -5,10 +5,11 @@ Command: npx gltfjsx@6.1.4 Composition.gltf
 
 import React, { useRef, useState, useMemo } from "react";
 import { useGLTF, useScroll, Html } from "@react-three/drei";
-import { useThree, useFrame } from "@react-three/fiber";
+import { useThree, useFrame, GroupProps } from "@react-three/fiber";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 import rsqw from "../util/rsqw";
+import { Group } from "three";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -133,9 +134,18 @@ type GLTFResult = GLTF & {
   };
 };
 
-export default function Composition({ url, scrl, ...props }) {
+interface CompositionProps extends GroupProps {
+  url: string;
+  scrl: number;
+}
+
+export default function Composition({ url, scrl, ...props }: CompositionProps) {
   const [pastScrl, setScrl] = useState(0);
-  const [hidden, set] = useState<boolean>(false);
+  const [hidden, setHidden] = useState<boolean | undefined>(false);
+  const set = (visible: boolean) => {
+    setHidden(visible);
+    return null;
+  };
 
   const [mouse, setMouse] = useState<boolean>(false);
   const [cam, setCam] = useState<boolean>(false);
@@ -145,7 +155,7 @@ export default function Composition({ url, scrl, ...props }) {
   const [r2, setr2] = useState<number>(0);
   const { nodes, materials } = useGLTF("/static/portfolio/Composition.glb") as GLTFResult;
   const { gl } = useThree();
-  const group = useRef<THREE.Group>();
+  const group = useRef<Group | null>(null);
   const scroll = useScroll();
   const { width, height } = useThree((state) => state.viewport);
   const camera = useThree((state) => state.camera);
@@ -155,7 +165,7 @@ export default function Composition({ url, scrl, ...props }) {
   const darkerGrey = useMemo(() => new THREE.MeshStandardMaterial({ color: "#4a4a4a" }), []);
 
   useFrame((state, delta) => {
-    if (group.current === undefined) return false;
+    if (group.current === null) return false;
     const r1 = scroll.range(0 / 4, 1 / 4);
     const r2 = scroll.range(2 / 4, 1 / 4);
     const r3 = scroll.range(3 / 4, 1 / 4);
@@ -225,7 +235,7 @@ export default function Composition({ url, scrl, ...props }) {
                     transform
                     occlude
                     prepend
-                    portal={{ current: gl.domElement.parentNode }}
+                    portal={{ current: gl.domElement.parentNode as HTMLElement }}
                     scale={13.9}
                     as="div"
                     onOcclude={set}

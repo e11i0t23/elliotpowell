@@ -14,7 +14,7 @@ export default function Contact() {
     message: "",
   });
 
-  const submit = (e) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (csrftoken === null) return false;
     fetch("/api/contact", {

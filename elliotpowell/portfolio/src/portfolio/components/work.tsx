@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 
-export default function Work({ setUrl, ...props }) {
-  const [projects, setProjects] = useImmer([]);
+interface WorkProps {
+  setURL: React.Dispatch<React.SetStateAction<string>>;
+}
+
+type project = {
+  title: string;
+  url: string;
+  description: string;
+  codeUrl: string | null;
+};
+
+export default function Work({ setURL }: WorkProps) {
+  const [projects, setProjects] = useImmer<project[]>([]);
   const [selected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -11,7 +22,7 @@ export default function Work({ setUrl, ...props }) {
         return r.json();
       })
       .then((p) => {
-        setProjects(p.work);
+        setProjects(p.work as project[]);
         setLoading(false);
       });
   }, []);
@@ -38,7 +49,7 @@ export default function Work({ setUrl, ...props }) {
                     href=""
                     onClick={(e) => {
                       e.preventDefault();
-                      setUrl(x.url);
+                      setURL(x.url);
                       setSelected(i);
                       return false;
                     }}

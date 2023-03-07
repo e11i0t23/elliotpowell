@@ -9,8 +9,12 @@ import About from "./about";
 import Contact from "./contact";
 import Composition from "./composition";
 
-export default function ScrollPage({ scrl, ...props }) {
-  const [url, setUrl] = useState("https://elliot-powell.com");
+interface ScrollPageProps {
+  scrl: number;
+}
+
+export default function ScrollPage({ scrl }: ScrollPageProps) {
+  const [url, setURL] = useState("https://elliot-powell.com");
   return (
     <>
       <ScrollControls pages={5} damping={0.1}>
@@ -24,7 +28,7 @@ export default function ScrollPage({ scrl, ...props }) {
             </div>
             <div style={{ top: "100vh" }} className="container-mainpage">
               <div className="">
-                <Work setUrl={setUrl} />
+                <Work setURL={setURL} />
               </div>
             </div>
             <div style={{ top: "200vh" }} className="container-mainpage">
