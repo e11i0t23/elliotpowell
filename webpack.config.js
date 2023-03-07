@@ -1,4 +1,8 @@
 const path = require('path');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+
+
 
 module.exports = {
     entry: [path.resolve(__dirname, 'elliotpowell/portfolio/src/portfolio/index.tsx')],
@@ -23,6 +27,10 @@ module.exports = {
         ],
     },
     resolve: { extensions: ["*", ".js", ".jsx", ".ts", ".tsx"] },
+    optimization: {
+        usedExports: true,
+        minimizer: [new TerserPlugin({ parallel: 4, extractComments: "all", terserOptions: { compress: true } }), new CssMinimizerPlugin()],
+    },
     output: {
         // where compiled files go
         path: path.resolve(__dirname, "elliotpowell/portfolio/static/portfolio/public/dist"),
