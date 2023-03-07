@@ -1,17 +1,13 @@
-import { ScrollControls, Scroll, useGLTF, useScroll, Html } from "@react-three/drei";
-import React, { useRef, useState, forwardRef, useEffect } from "react";
+import { ScrollControls, Scroll } from "@react-three/drei";
+import React, { useRef, useState } from "react";
 
-import { useThree, useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import { useThree } from "@react-three/fiber";
 import Intro from "./intro";
 import Work from "./work";
 import Skills from "./skills";
 import About from "./about";
 import Contact from "./contact";
 import Composition from "./composition";
-
-const rsqw = (t, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) =>
-  (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta);
 
 export default function ScrollPage({ scrl, ...props }) {
   const { viewport } = useThree();

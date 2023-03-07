@@ -8,9 +8,7 @@ import { useGLTF, useScroll, Html } from "@react-three/drei";
 import { useThree, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
-
-const rsqw = (t, delta = 0.1, a = 1, f = 1 / (2 * Math.PI)) =>
-  (a / Math.atan(1 / delta)) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta);
+import rsqw from "../util/rsqw";
 
 type GLTFResult = GLTF & {
   nodes: {
