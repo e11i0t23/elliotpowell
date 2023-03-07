@@ -1,11 +1,9 @@
-import React, { Suspense, useState, useRef, useEffect } from "react";
+import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
+import { Loader } from "@react-three/drei";
+import useWindowDimensions from "./util/windowDimesnions";
 
 import ScrollPage from "./components/scrollPage";
-import Composition from "./components/composition";
-
-import { OrbitControls, Loader } from "@react-three/drei";
-import useWindowDimensions from "./util/windowDimesnions";
 
 export default function App() {
   const { innerHeight, innerWidth } = useWindowDimensions();
