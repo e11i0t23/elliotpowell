@@ -48,7 +48,7 @@ export default function Composition({ url, scrl, ...props }: portfolio.Compositi
       pastScrl.current = scrl;
     }
     // only show html on projects and skills page
-    if (showHTML !== scroll.visible(1 / 4, 1 / 4)) setShow(scroll.visible(1 / 4, 1 / 4));
+    if (showHTML !== scroll.visible(3 / 16, 5 / 16)) setShow(scroll.visible(3 / 16, 5 / 16));
 
     // The Animation movements
     camera.position.z = 0 + rsqw(r1) * 0.5;
