@@ -67,6 +67,12 @@
   background: linear-gradient(to right, #aa076b, #61045f);
 }
 
+.sh-bullet {
+  display: inline-block;
+  height: 14px;
+  position: relative;
+}
+
 .content {
   width: 960px;
   height: 500px;
@@ -118,10 +124,14 @@
   }
 
   .sh {
-    display: flex;
     height: 7px;
     margin-bottom: 5px;
   }
+
+  .sh-bullet {
+    height: 7px;
+  }
+
   .sh-indent {
     margin-top: 14px;
     margin-left: 28px;
@@ -130,7 +140,6 @@
   .sh-symbol {
     width: 7px;
     margin-right: 7px;
-    background-color: darkgray;
   }
 
   .sh-symbol--rect {
@@ -170,9 +179,11 @@
     width: calc(33vw - 100px);
   }
   .sh {
-    display: flex;
     height: 10px;
     margin-bottom: 5px;
+  }
+  .sh-bullet {
+    height: 10px;
   }
   .sh-indent {
     margin-top: 20px;
@@ -182,7 +193,6 @@
   .sh-symbol {
     width: 10px;
     margin-right: 10px;
-    background-color: darkgray;
   }
 
   .sh-symbol--rect {
@@ -227,4 +237,9 @@
 
 .navbar-contact {
   text-align: left;
+}
+
+.inline-h5 {
+  display: inline-block;
+  font-size: 25px;
 }
