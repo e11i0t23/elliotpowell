@@ -1,3 +1,7 @@
+/* 
+The react Component for the about page, a simple text only component
+*/
+
 import React from "react";
 
 export default function About() {

@@ -19,21 +19,14 @@ export default function Work({ setURL }: portfolio.WorkProps) {
     <>
       <div style={{ width: "500px" }}>
         <h2 style={{ display: "inline-block", fontSize: "50px" }}>
-          <span
-            className="sh-symbol--rect sh-symbol"
-            style={{
-              display: "inline-block",
-              height: "14px",
-              position: "relative",
-            }}
-          ></span>
+          <span className="sh-symbol--rect sh-symbol sh-bullet"></span>
           Projects
         </h2>
         {!loading &&
           projects.map(function (x, i) {
             return (
               <div key={i}>
-                <div style={{ display: "flex" }}>
+                <div>
                   <a
                     href=""
                     onClick={(e) => {
@@ -43,14 +36,9 @@ export default function Work({ setURL }: portfolio.WorkProps) {
                       return false;
                     }}
                   >
-                    <h5 style={{ display: "inline-block", fontSize: "25px" }}>
+                    <h5 className="inline-h5">
                       <span
-                        className={` ${selected == i ? "sh-symbol--rect-short" : "sh-symbol"}  sh-symbol`}
-                        style={{
-                          display: "inline-block",
-                          height: "14px",
-                          position: "relative",
-                        }}
+                        className={` ${selected == i ? "sh-symbol--rect-short" : "sh-symbol"}  sh-symbol sh-bullet`}
                       ></span>
                       {x.title}
                     </h5>

@@ -17,23 +17,16 @@ export default function Skills({ ...props }) {
   }, []);
   return (
     <>
-      <div style={{ width: "500px" }}>
+      <div>
         <h2 style={{ display: "inline-block", fontSize: "50px" }}>
-          <span
-            className="sh-symbol--rect sh-symbol"
-            style={{
-              display: "inline-block",
-              height: "14px",
-              position: "relative",
-            }}
-          ></span>
+          <span className="sh-symbol--rect sh-symbol sh-bullet"></span>
           Skills
         </h2>
         {!loading &&
           skills.map(function (x, i) {
             return (
               <div key={i}>
-                <div style={{ display: "flex" }}>
+                <div>
                   <a
                     href=""
                     onClick={(e) => {
@@ -42,14 +35,9 @@ export default function Skills({ ...props }) {
                       return false;
                     }}
                   >
-                    <h5 style={{ display: "inline-block", fontSize: "25px" }}>
+                    <h5 className="inline-h5">
                       <span
-                        className={` ${selected == i ? "sh-symbol--rect-short" : "sh-symbol"}  sh-symbol`}
-                        style={{
-                          display: "inline-block",
-                          height: "14px",
-                          position: "relative",
-                        }}
+                        className={` ${selected == i ? "sh-symbol--rect-short" : "sh-symbol"}  sh-symbol sh-bullet`}
                       ></span>
                       {x.title}
                     </h5>
@@ -58,7 +46,7 @@ export default function Skills({ ...props }) {
                 {x.frameworks.length >= 1 &&
                   x.frameworks.map(function (y, j) {
                     return (
-                      <div style={{ display: "flex" }} key={j}>
+                      <div key={j}>
                         <a
                           href=""
                           onClick={(e) => {
@@ -66,21 +54,8 @@ export default function Skills({ ...props }) {
                             return false;
                           }}
                         >
-                          <h5
-                            style={{
-                              display: "inline-block",
-                              fontSize: "25px",
-                            }}
-                          >
-                            <span
-                              className={`sh-symbol`}
-                              style={{
-                                display: "inline-block",
-                                height: "14px",
-                                marginLeft: "28px",
-                                position: "relative",
-                              }}
-                            ></span>
+                          <h5 className="inline-h5">
+                            <span className={`sh-symbol sh-bullet sh-indent`}></span>
                             {y.title}
                           </h5>
                         </a>
