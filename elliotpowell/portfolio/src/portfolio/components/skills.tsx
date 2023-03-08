@@ -18,10 +18,10 @@ export default function Skills({ ...props }) {
   return (
     <>
       <div>
-        <h2 style={{ display: "inline-block", fontSize: "50px" }}>
+        <h1 className="d-inline-block fw-bold">
           <span className="sh-symbol--rect sh-symbol sh-bullet"></span>
           Skills
-        </h2>
+        </h1>
         {!loading &&
           skills.map(function (x, i) {
             return (
@@ -31,7 +31,6 @@ export default function Skills({ ...props }) {
                     href=""
                     onClick={(e) => {
                       e.preventDefault();
-                      // setSelected(i);
                       return false;
                     }}
                   >

@@ -12,16 +12,17 @@ export default function Work({ setURL }: portfolio.WorkProps) {
       })
       .then((p) => {
         setProjects(p.work as portfolio.project[]);
+        setURL(p.work[0].url);
         setLoading(false);
       });
   }, []);
   return (
     <>
       <div style={{ width: "500px" }}>
-        <h2 style={{ display: "inline-block", fontSize: "50px" }}>
+        <h1 className="d-inline-block fw-bold">
           <span className="sh-symbol--rect sh-symbol sh-bullet"></span>
           Projects
-        </h2>
+        </h1>
         {!loading &&
           projects.map(function (x, i) {
             return (
