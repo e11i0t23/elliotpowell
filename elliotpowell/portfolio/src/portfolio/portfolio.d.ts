@@ -8,6 +8,10 @@ declare namespace portfolio {
     scrl: number;
   }
 
+  type screenHTMLProps = {
+    url: string;
+  };
+
   type framework = {
     title: string;
   };
