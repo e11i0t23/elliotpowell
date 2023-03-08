@@ -105,6 +105,7 @@ These aditional requirements I believe suitably increases the difficulty of the 
 │       │       │   ├── composition.tsx # Loads Composition.glb and sets up scroll based animations
 │       │       │   ├── contact.tsx # The Contact Form
 │       │       │   ├── intro.tsx # The introducion section
+│       │       │   ├── screenHTML.tsx # Contains the html content to be rendered on the monitor model
 │       │       │   ├── scrollPage.tsx # Sets Up our scroll handeling from the drei module
 │       │       │   ├── skills.tsx # Collects and renders the skills list
 │       │       │   └── work.tsx # Collects projects from the api and renders a clickable list
