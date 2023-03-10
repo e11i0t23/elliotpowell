@@ -2,6 +2,7 @@ declare namespace portfolio {
   interface CompositionProps extends GroupProps {
     url: string;
     scrl: number;
+    texture: Texture;
   }
 
   interface ScrollPageProps {
@@ -14,11 +15,17 @@ declare namespace portfolio {
 
   type framework = {
     title: string;
+    url: string;
+    texture: number;
   };
-  type skill = {
-    title: string;
+  interface skill extends framework {
     frameworks: framework[];
-  };
+  }
+
+  interface SkillsProps {
+    texture: Texture;
+    setTexture: React.Dispatch<React.SetStateAction<Texture>>;
+  }
 
   interface WorkProps {
     setURL: React.Dispatch<React.SetStateAction<string>>;

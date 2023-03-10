@@ -9,9 +9,9 @@ This File contains all the code needed for the composition and animating how it 
 */
 
 import React, { useRef, useState, useMemo, useEffect, useCallback } from "react";
-import { useGLTF, useScroll, Html } from "@react-three/drei";
+import { useGLTF, useScroll, Html, useTexture } from "@react-three/drei";
 import { useThree, useFrame } from "@react-three/fiber";
-import { BufferGeometry, Mesh, MeshStandardMaterial, Material, Group, Object3D } from "three";
+import { BufferGeometry, Mesh, MeshStandardMaterial, Material, Group, Object3D, RepeatWrapping } from "three";
 import rsqw from "../util/rsqw";
 
 import ScreenHTML from "./screenHTML";
@@ -20,7 +20,7 @@ const white = new MeshStandardMaterial({ color: "#ffffff" });
 const darkGrey = new MeshStandardMaterial({ color: "#6b6b6b" });
 const darkerGrey = new MeshStandardMaterial({ color: "#4a4a4a" });
 
-export default function Composition({ url, scrl, ...props }: portfolio.CompositionProps) {
+export default function Composition({ url, scrl, texture, ...props }: portfolio.CompositionProps) {
   const { nodes, materials } = useGLTF("/static/portfolio/Composition.glb") as portfolio.GLTFResult;
 
   const pastScrl = useRef<number>(0);
@@ -32,7 +32,8 @@ export default function Composition({ url, scrl, ...props }: portfolio.Compositi
   const scroll = useScroll();
   const camera = useThree((state) => state.camera);
 
-  const [showHTML, setShow] = useState<boolean>(false);
+  const [showHTML, setShowHTML] = useState<boolean>(false);
+  const [showTexture, setShowTexture] = useState<boolean>(false);
 
   useFrame(() => {
     if (group.current === null) return false;
@@ -48,7 +49,8 @@ export default function Composition({ url, scrl, ...props }: portfolio.Compositi
       pastScrl.current = scrl;
     }
     // only show html on projects and skills page
-    if (showHTML !== scroll.visible(3 / 16, 5 / 16)) setShow(scroll.visible(3 / 16, 5 / 16));
+    if (showHTML !== scroll.visible(3 / 16, 3 / 16)) setShowHTML(scroll.visible(3 / 16, 3 / 16));
+    if (showTexture !== scroll.visible(5 / 16, 3 / 16)) setShowTexture(scroll.visible(5 / 16, 3 / 16));
 
     // The Animation movements
     camera.position.z = 0 + rsqw(r1) * 0.5;
@@ -97,6 +99,7 @@ export default function Composition({ url, scrl, ...props }: portfolio.Compositi
             <mesh geometry={nodes.Stand.geometry} material={materials["Opaque(64,64,64)"]} />
             <mesh geometry={nodes.Screen.geometry} visible={true}>
               <meshStandardMaterial color={"#9e9e9e"} />
+              {showTexture && <meshStandardMaterial map={texture} />}
               {/* Change what is rended on the monitor based on the window width and scroll */}
               {size.width >= 800 && showHTML && <ScreenHTML url={url} />}
             </mesh>
