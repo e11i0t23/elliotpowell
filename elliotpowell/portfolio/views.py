@@ -9,11 +9,11 @@ def index(request):
     return render(request, "portfolio/index.html")
 
 def work(request):
-    work = [project.serialize() for project in Work.objects.all()]
+    work = [project.serialize() for project in Work.objects.all().order_by('-id')]
     return JsonResponse({"work":work})
 
 def skills(request):
-    skills = [lang.serialize() for lang in Language.objects.all()]
+    skills = [lang.serialize() for lang in Language.objects.all().order_by('-id')]
     return JsonResponse({"skills":skills})
 
 def contact(request):
