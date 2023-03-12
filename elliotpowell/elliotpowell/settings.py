@@ -160,3 +160,15 @@ CSP_WORKER_SRC = ("'self'", "blob:")
 
 if not IS_HEROKU:
     CSP_CONNECT_SRC.append("ws:")
+
+if 'EMAIL_HOST' in os.environ and 'EMAIL_HOST_USER' in os.environ and 'EMAIL_HOST_PASSWORD' in os.environ and 'EMAIL_NOTIFICATION_RECIEVER' in os.environ:
+    EMAIL = True
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = os.environ['EMAIL_HOST']
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+    EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+    EMAIL_NOTIFICATION_RECIEVER = os.environ['EMAIL_NOTIFICATION_RECIEVER']
+else:
+    EMAIL = False

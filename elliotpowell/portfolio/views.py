@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.conf import settings
 import json
 
 from .models import Work, Language, ContactMessage
@@ -22,6 +24,13 @@ def contact(request):
         print(data)
         c = ContactMessage(**data)
         c.save()
+        if settings.EMAIL:
+            subject = f'{c.name} with email {c.email} sent a new message with subject {c.subject}'
+            message = f'{c.message}'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [settings.EMAIL_NOTIFICATION_RECIEVER,]
+            send_mail( subject, message, email_from, recipient_list )
+
         return JsonResponse({"message":"Successfully posted"}, status=200)
     else:
         return JsonResponse({"error":"invalid operation"}, status=400)
