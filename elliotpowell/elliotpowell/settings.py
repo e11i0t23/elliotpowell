@@ -153,9 +153,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSP_FRAME_ANCESTORS = ("'self'", "https://*.elliot-powell.com")
 CSP_FRAME_SRC = ("'self'", "https://*.elliot-powell.com", "https://elliot-powell.com", "https://epkb.design", "https://*.epkb.design")
-CSP_SCRIPT_SRC = ("'self'","'unsafe-eval'")
+CSP_SCRIPT_SRC = ("'self'","'unsafe-eval'", "https://www.googletagmanager.com", "'unsafe-inline'")
 CSP_STYLE_SRC = ("'self'","'unsafe-inline'")
-CSP_CONNECT_SRC = ["'self'", "https://www.gstatic.com/"]
+CSP_CONNECT_SRC = ["'self'", "https://www.gstatic.com/", "https://*.google-analytics.com"]
 CSP_WORKER_SRC = ("'self'", "blob:")
 
 if not IS_HEROKU:
